@@ -1,0 +1,12 @@
+audio = audioread('guitar.wav');
+a = 0.95;
+d = 100;
+num = [-a; zeros(d,1)];
+den = [1; zeros(d,1); -a]';
+signal = filter(num, den, audio);
+%sound(audio);
+sound(signal);
+figure; 
+plot(audio(1:20000)); 
+hold;
+plot(signal(1:20000));
