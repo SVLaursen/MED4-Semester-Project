@@ -1,5 +1,5 @@
 clc;
-audio = audioread('guitar.wav');
+audio = audioread('dropitem.mp3');
 disp(audioinfo('guitar.wav'));
 d = 200;
 num = [zeros(d,1); 1]';
@@ -8,6 +8,7 @@ signal = filter(num, den, audio);
 %sound(audio);
 sound(signal);
 figure; 
-plot(audio(1:20000)); 
-hold;
-plot(signal(1:20000));
+%plot(audio(1:20000)); 
+%hold;
+%plot(signal(1:20000));
+%plot(impulse(audio));
