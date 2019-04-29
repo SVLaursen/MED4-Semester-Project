@@ -12,6 +12,8 @@ namespace AudioConversionSoftware
         private static bool _shutdown;
         private static SerialPort _serialPort;
 
+        private static float[] dialData;
+
         public static void Main(string[] args)
         {
             string command;
@@ -87,6 +89,24 @@ namespace AudioConversionSoftware
             }
 
             _serialPort.Close();
+        }
+
+        private float[] SerialPort1_DataReceived()
+        {
+            string dataString = _serialPort.ReadExisting();
+            string[] dataOutputs = dataString.Split(',');
+
+            float[] dataToSend = float[3];
+
+            for(int i = 0; i < dataOutputs.Length; i++)
+            {
+                dataOutputs[i].Trim();
+                string output = dataOutputs[i].Replace("Value" + (i + 1) + ":", "");
+
+                dataToSend[i] = float.Parse(output);
+            }
+
+            return dataToSend;
         }
 
         private static bool ArduinoConnection()
