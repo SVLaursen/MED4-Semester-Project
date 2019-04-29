@@ -1,0 +1,21 @@
+﻿<Properties StartupConfiguration="{29AD14F3-36CC-427D-824A-E11C6069F7D1}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AudioConversionSoftware/Program.cs">
+    <Files>
+      <File FileName="AudioConversionSoftware/Program.cs" Line="82" Column="37" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="AudioConversionSoftware" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.AudioConversionSoftware PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

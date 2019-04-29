@@ -1,0 +1,6 @@
+/Users/simonlaursen/Dropbox/AAU/4Semester/Semester Project/MED4-Semester-Project/GUI/AudioConversionSoftware/AudioConversionSoftware/bin/Debug/AudioConversionSoftware.exe
+/Users/simonlaursen/Dropbox/AAU/4Semester/Semester Project/MED4-Semester-Project/GUI/AudioConversionSoftware/AudioConversionSoftware/bin/Debug/AudioConversionSoftware.pdb
+/Users/simonlaursen/Dropbox/AAU/4Semester/Semester Project/MED4-Semester-Project/GUI/AudioConversionSoftware/AudioConversionSoftware/obj/x86/Debug/AudioConversionSoftware.csprojAssemblyReference.cache
+/Users/simonlaursen/Dropbox/AAU/4Semester/Semester Project/MED4-Semester-Project/GUI/AudioConversionSoftware/AudioConversionSoftware/obj/x86/Debug/AudioConversionSoftware.csproj.CoreCompileInputs.cache
+/Users/simonlaursen/Dropbox/AAU/4Semester/Semester Project/MED4-Semester-Project/GUI/AudioConversionSoftware/AudioConversionSoftware/obj/x86/Debug/AudioConversionSoftware.exe
+/Users/simonlaursen/Dropbox/AAU/4Semester/Semester Project/MED4-Semester-Project/GUI/AudioConversionSoftware/AudioConversionSoftware/obj/x86/Debug/AudioConversionSoftware.pdb
