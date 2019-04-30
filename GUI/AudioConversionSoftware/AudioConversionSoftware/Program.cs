@@ -112,16 +112,18 @@ namespace AudioConversionSoftware
             string dataString = port.ReadExisting();
             string[] dataOutputs = dataString.Split(',');
 
-            Console.WriteLine("Checking for data");
+            Console.WriteLine("Checking data");
 
             float[] dataToSend = new float[3];
 
             for(int i = 0; i < dataOutputs.Length; i++)
             {
                 dataOutputs[i].Trim();
-                string output = dataOutputs[i].Replace("Value" + (i + 1) + ":", "");
+                string output = dataOutputs[i].Replace("Value " + ":", "");
 
-                dataToSend[i] = float.Parse(output);
+                Console.WriteLine(dataOutputs[i]);
+
+                //dataToSend[i] = float.Parse(output);
             }
 
             return dataToSend;
