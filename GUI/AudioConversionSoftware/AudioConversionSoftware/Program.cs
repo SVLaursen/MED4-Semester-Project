@@ -64,6 +64,10 @@ namespace AudioConversionSoftware
 
             while (_run)
             {
+                if (!_serialPort.IsOpen) Console.WriteLine("OH NO");
+                dialData = SerialPort1_DataReceived(ref _serialPort);
+                Console.WriteLine("Dial data received");
+
                 command = Console.ReadLine();
 
                 if (stringComparer.Equals("quit", command))
@@ -86,17 +90,31 @@ namespace AudioConversionSoftware
                 else if (stringComparer.Equals("help", command))
                     Console.WriteLine("-> You can use the following commands: \n"
                         + "quit / run");
+                else if(stringComparer.Equals("debug", command))
+                {
+                    if (dialData == null)
+                    {
+                        Console.WriteLine("Did not receive any dial data, shutting down");
+                        return;
+                    }
+                    for (int i = 0; i < dialData.Length; i++)
+                        Console.WriteLine("Entry " + i + ": " + dialData[i]);
+                }
+
             }
 
             _serialPort.Close();
         }
 
-        private float[] SerialPort1_DataReceived()
+        private static float[] SerialPort1_DataReceived(ref SerialPort port)
         {
-            string dataString = _serialPort.ReadExisting();
+            Console.WriteLine("Trying to read data");
+            string dataString = port.ReadExisting();
             string[] dataOutputs = dataString.Split(',');
 
-            float[] dataToSend = float[3];
+            Console.WriteLine("Checking for data");
+
+            float[] dataToSend = new float[3];
 
             for(int i = 0; i < dataOutputs.Length; i++)
             {
@@ -107,12 +125,6 @@ namespace AudioConversionSoftware
             }
 
             return dataToSend;
-        }
-
-        private static bool ArduinoConnection()
-        {
-            //TODO: Setup the connection with the serial port
-            return false;
         }
 
         #region Serial Port Setters

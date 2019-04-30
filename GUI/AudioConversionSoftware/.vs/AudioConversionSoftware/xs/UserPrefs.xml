@@ -6,7 +6,11 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="AudioConversionSoftware" expanded="True" selected="True" />
+          <Node name="AudioConversionSoftware" expanded="True">
+            <Node name="AudioConversionSoftware" expanded="True">
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
         </State>
       </Pad>
     </Pads>
