@@ -2,6 +2,7 @@
 using System.Media;
 using System.Threading;
 using System.IO.Ports;
+using System.Runtime.InteropServices;
 
 namespace AudioConversionSoftware
 {
@@ -13,6 +14,8 @@ namespace AudioConversionSoftware
         private static SerialPort _serialPort;
 
         private static float[] dialData;
+
+        private static StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
 
         public static void Main(string[] args)
         {
@@ -65,9 +68,15 @@ namespace AudioConversionSoftware
             while (_run)
             {
                 if (!_serialPort.IsOpen) Console.WriteLine("OH NO");
-                dialData = SerialPort1_DataReceived(ref _serialPort);
-                Console.WriteLine("Dial data received");
+                //dialData = SerialPort_DataReceived(_serialPort);
+                //Console.WriteLine("Dial data received");
+                ReadInput();
+            }
 
+            _serialPort.Close();
+
+            void ReadInput()
+            {
                 command = Console.ReadLine();
 
                 if (stringComparer.Equals("quit", command))
@@ -78,35 +87,71 @@ namespace AudioConversionSoftware
                 }
                 else if (stringComparer.Equals("run", command))
                 {
-                    Console.WriteLine("-> Please write in the filepath of the audio file you wish to alter:");
-
-                    string filePath = Console.ReadLine();
-                    var audioBytes = AudioConverter.Instance.FileToBytes(filePath);
-
-                    if (audioBytes == null) break;
-
-                    //TODO: Continue
+                    AlgorithmToRun(Console.ReadLine());
                 }
                 else if (stringComparer.Equals("help", command))
                     Console.WriteLine("-> You can use the following commands: \n"
                         + "quit / run");
-                else if(stringComparer.Equals("debug", command))
+                else if (stringComparer.Equals("debug", command))
                 {
                     if (dialData == null)
                     {
-                        Console.WriteLine("Did not receive any dial data, shutting down");
+                        Console.WriteLine("-> Did not receive any dial data, shutting down");
                         return;
                     }
                     for (int i = 0; i < dialData.Length; i++)
-                        Console.WriteLine("Entry " + i + ": " + dialData[i]);
+                        Console.WriteLine("-> Entry " + i + ": " + dialData[i]);
                 }
-
+                else
+                    ReadInput();
             }
 
-            _serialPort.Close();
+            void AlgorithmToRun(string input)
+            {
+                Console.WriteLine("-> Please specify which effect algorithm you wish to choose; RiR or Schroeder");
+
+                if (stringComparer.Equals("RiR", input))
+                {
+                    string filepath = SetFilepath();
+                    SerialPort_DataReceived(_serialPort);
+
+                    //TODO: Implement RiR algorithm
+
+                    Console.WriteLine("Not yet implemented, shutting down");
+                    Thread.Sleep(3000);
+                    _run = false;
+                }
+                else if (stringComparer.Equals("schroeder", input))
+                {
+                    string filepath = SetFilepath();
+                    SerialPort_DataReceived(_serialPort);
+
+                    //TODO: Implement matlab algorithm
+
+                    Console.WriteLine("Not yet implemented, shutting down");
+                    Thread.Sleep(3000);
+                    _run = false;
+                }
+                else if(stringComparer.Equals("back", input))
+                {
+                    Console.WriteLine("-> Going back to previous menu");
+                    ReadInput();
+                }
+                else
+                {
+                    Console.WriteLine("-> Input not valid, try different command");
+                    AlgorithmToRun(Console.ReadLine());
+                }
+
+                string SetFilepath()
+                {
+                    Console.WriteLine("-> Please input the path of the sound file");
+                    return Console.ReadLine();
+                }
+            }
         }
 
-        private static float[] SerialPort1_DataReceived(ref SerialPort port)
+        private static float[] SerialPort_DataReceived(SerialPort port)
         {
             Console.WriteLine("Trying to read data");
             string dataString = port.ReadExisting();
@@ -119,11 +164,9 @@ namespace AudioConversionSoftware
             for(int i = 0; i < dataOutputs.Length; i++)
             {
                 dataOutputs[i].Trim();
-                string output = dataOutputs[i].Replace("Value " + ":", "");
+                string output = dataOutputs[i].Replace(" ", "");
 
-                Console.WriteLine(dataOutputs[i]);
-
-                //dataToSend[i] = float.Parse(output);
+                dataToSend[i] = float.Parse(output);
             }
 
             return dataToSend;

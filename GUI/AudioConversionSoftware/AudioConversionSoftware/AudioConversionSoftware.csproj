@@ -35,5 +35,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lib\example_1.py" />
+    <None Include="lib\olafilt.py" />
+    <None Include="lib\roomsimove_single.py" />
+    <None Include="lib\rirAlgorithm" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

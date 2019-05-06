@@ -1,0 +1,7 @@
+RiRLibInitialize
+RiRLibInitializeWithHandlers
+RiRLibTerminate
+RiRLibPrintStackTrace
+mlxRirFunction
+RirFunction
+
