@@ -1,3 +1,0 @@
-#!/Users/simonlaursen/Dropbox/AAU/4Semester/Semester Project/MED4-Semester-Project/AudioReverbLib/venv/bin/python
-from numba.pycc import main
-main()
