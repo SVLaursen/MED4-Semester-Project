@@ -1,2 +1,10 @@
-riraudio = RirFunction('C:\Users\annam.LAPTOP-4PVHIIFB\Documents\GitHub\MED4-Semester-Project\projectAnia\guitar.wav', [10 10 10], [7 6 4], [8 8 8]);
-sound(riraudio);
+a = 7;
+b = 8;
+c =6 ;
+d =5;
+
+if a>=b && c>=d
+    disp("hello");
+else
+    disp("no hello");
+end

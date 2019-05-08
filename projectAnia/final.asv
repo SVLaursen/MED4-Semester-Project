@@ -28,9 +28,8 @@ if strcmp(firstUserInput,'sch')
                 elseif strcmp(schroederYesOrNo,'yes')
                 schroederAudio = SchroederAlgorithm(audio, valueOfPin1*maxPinForSchroeder);
                 sound(schroederAudio);
-                
-                norm = (schroederAudio - min(schroederAudio))/(max(schroederAudio)-min(schroederAudio));
-                audiowrite('output2.wav', norm, samplerate)
+              
+                audiowrite('output2.wav', schroederAudio, 44100)
                 break;
                 end
             end
