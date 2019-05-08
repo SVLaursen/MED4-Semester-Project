@@ -15,13 +15,23 @@ prompt = 'Choose one: \n- for Schroeder, type "sch" \n- for Room Impulse Respons
 firstUserInput = input(prompt, 's');
 
 if strcmp(firstUserInput,'sch')
-    prompt = 'Now, choose how intense the Schroeder reverb will be by turning potentiometer and type "done", to hear filtered sound \n';
+    while true
+    prompt = 'Choose how intense the Schroeder reverb will be by turning potentiometer and type "done" \n';
     schroederUserInput = input(prompt, 's');
-        if strcmp(schroederUserInput,'done')
-            schroederAudio = SchroederAlgorithm(audio, valueOfPin1*maxPinForSchroeder);
-            sound(schroederAudio);
-            disp( valueOfPin1);
-        end
+    valueOfPin1= readVoltage(a,'A0');
+            if strcmp(schroederUserInput,'done')
+            disp("Schroeder's reverb intensity:" + valueOfPin1*20 + "%")
+            prompt = 'Continue with these parameters? yes/no \n';
+            schroederYesOrNo = input(prompt, 's');
+                if strcmp(schroederYesOrNo,'no')
+                    
+                elseif strcmp(schroederYesOrNo,'yes')
+                schroederAudio = SchroederAlgorithm(audio, valueOfPin1*maxPinForSchroeder);
+                sound(schroederAudio);
+                break;
+                end
+            end
+   end
 elseif strcmp(firstUserInput,'r1')
     %rir(44100, [19 18 1.6], 12, 0.3, [20 19 21], [5 2 1])
 elseif strcmp(firstUserInput,'r2')
@@ -33,16 +43,16 @@ elseif strcmp(firstUserInput,'r2')
     valueOfPin3= readVoltage(a,'A2');
         if strcmp(roomUserInput,'done')
             disp("Dimensions of your room are:");
-            disp("Lenght =" + valueOfPin1*20);
-            disp("Width =" + valueOfPin2*20);
-            disp("Height =" + valueOfPin3*20);
-            sizeOfRoom = [valueOfPin1*20 valueOfPin2*20 valueOfPin3*20];
-            prompt = 'Do you want to change any of them? Type "yes" if you want to, or "no" if you want to continue \n';
+            disp("Lenght =" + valueOfPin1*2);
+            disp("Width =" + valueOfPin2*2);
+            disp("Height =" + valueOfPin3*2);
+            sizeOfRoom = [valueOfPin1*2 valueOfPin2*2 valueOfPin3*2];
+            prompt = 'Continue with these parameters? yes/no \n';
             sizeOfRoomYesorNo = input(prompt, 's');
             
-            if strcmp(sizeOfRoomYesorNo,'yes')
+            if strcmp(sizeOfRoomYesorNo,'no')
 
-            elseif strcmp(sizeOfRoomYesorNo,'no')
+            elseif strcmp(sizeOfRoomYesorNo,'yes')
                 while true
                 prompt = 'Turn each potentiometer to establish receiver position (it is measured in meters) \nFirst potentiometer is "x" position \nSecond is "y" position \nThird is "z" position \nType "done" to see the result \n';
                 receiverUserInput = input(prompt, 's');
@@ -50,18 +60,18 @@ elseif strcmp(firstUserInput,'r2')
                 valueOfPin2= readVoltage(a,'A1');
                 valueOfPin3= readVoltage(a,'A2');
                     if strcmp(receiverUserInput,'done')
-                        if (valueOfPin1<=sizeOfRoom(1)) || (valueOfPin2<=sizeOfRoom(2)) || (valueOfPin3<=sizeOfRoom(3))
-                        disp("Receiver position:");
-                        disp("X =" + valueOfPin1*20);
-                        disp("Y =" + valueOfPin2*20);
-                        disp("Z =" + valueOfPin3*20);
-                        receiverPosition = [valueOfPin1*20 valueOfPin2*20 valueOfPin2*20];
-                        prompt = 'Do you want to change any of them? Type "yes" if you want to, or "no" if you want to continue';
-                        receiverYesorNo = input(prompt, 's');
+                        if valueOfPin1<=sizeOfRoom(1) && valueOfPin2<=sizeOfRoom(2) && valueOfPin3<=sizeOfRoom(3)
+                            disp("Receiver position:");
+                            disp("X =" + valueOfPin1*2);
+                            disp("Y =" + valueOfPin2*2);
+                            disp("Z =" + valueOfPin3*2);
+                            receiverPosition = [valueOfPin1*2 valueOfPin2*2 valueOfPin2*2];
+                            prompt = 'Continue with these parameters? yes/no \n';
+                            receiverYesorNo = input(prompt, 's');
 
-                            if strcmp(receiverYesorNo,'yes')
+                            if strcmp(receiverYesorNo,'no')
 
-                            elseif strcmp(receiverYesorNo,'no')
+                            elseif strcmp(receiverYesorNo,'yes')
                                 while true
                                 prompt = 'Turn each potentiometer to establish source position (it is measured in meters) \nFirst potentiometer is "x" position \nSecond is "y" position \nThird is "z" position \nType "done" to see the result \n';
                                 sourceUserInput = input(prompt, 's');
@@ -70,31 +80,36 @@ elseif strcmp(firstUserInput,'r2')
                                 valueOfPin3= readVoltage(a,'A2');
                                     if strcmp(sourceUserInput,'done')
                                     disp("Source position is:");
-                                    disp("X =" + valueOfPin1*20);
-                                    disp("Y =" + valueOfPin2*20);
-                                    disp("Z =" + valueOfPin3*20);
-                                    sourcePosition = [valueOfPin1*20 valueOfPin2*20 valueOfPin2*20];
-                                    prompt = 'Do you want to change any of them? Type "yes" if you want to, or "no" if you want to continue';
+                                    disp("X =" + valueOfPin1*2);
+                                    disp("Y =" + valueOfPin2*2);
+                                    disp("Z =" + valueOfPin3*2);
+                                    sourcePosition = [valueOfPin1*2 valueOfPin2*2 valueOfPin2*2];
+                                    prompt = 'Continue with these parameters? yes/no \n';
                                     sourceYesorNo = input(prompt, 's');
 
-                                        if strcmp(receiverYesorNo,'yes')
+                                        if strcmp(sourceYesorNo,'no')
 
-                                        elseif strcmp(receiverYesorNo,'no')
+                                        elseif strcmp(sourceYesorNo,'yes')
                                             disp(sizeOfRoom);
                                             disp(receiverPosition);
                                             disp(sourcePosition);
                                             rirAudio = RirFunction(audio, sizeOfRoom, receiverPosition, sourcePosition);
-                                            %sound(rirAudio);
+                                            sound(rirAudio);
+                                            break;
                                         end
-                                    end
+                                    break;
+                                    end 
                                 end
                             end
                         else 
-                        %disp("Upsi dupsi, one of the variables is bigger than size of the room! Try again")
+                        disp("Upsi dupsi, one of the variables is bigger than size of the room! Try again");
+                        break;
                         end
                     end
+                break;    
                 end
             end
         end
+    break;    
     end
 end
