@@ -3,15 +3,17 @@ function [schroederAudio] = SchroederAlgorithm(fileLocation, reverbAmount)
 %   Detailed explanation goes here
 %   The first input of the function is the location of the file you wish 
 %   to alter as a string.
-
 clc;
 sys = 0;
 delay = [1553; 1613; 1493; 1153; 223; 443];
+%delay = [1153; 1493; 223; 443; 121; 156];
 a = [0.85 ; 0.85; 0.75; 0.75; 0.7; 0.7];
 b = [0.3 ; 0.25; 0.25; 0.2];
 
 %audio = audioread(fileLocation);
 [audio, fs_audio] = audioread(fileLocation);
+%audio = data;
+%fs_audio = samplerate;
 audio = resample(audio, 44100, fs_audio);
 
 for i=1:length(delay)
