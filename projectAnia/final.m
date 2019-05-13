@@ -1,4 +1,5 @@
 clear;
+clc;
 a = arduino;
 valueOfPin1= 5-readVoltage(a,'A0');
 valueOfPin2= 5-readVoltage(a,'A1');
@@ -30,7 +31,6 @@ if strcmp(firstUserInput,'sch')
             prompt = 'Continue with these parameters? yes/no \n';
             schroederYesOrNo = input(prompt, 's');
                 if strcmp(schroederYesOrNo,'no')
-                    
                 elseif strcmp(schroederYesOrNo,'yes')
                 schroederAudio = SchroederAlgorithm('speech_dft_8kHz.wav', (valueOfPin1)*maxPinForSchroeder);
                 
@@ -52,7 +52,7 @@ elseif strcmp(firstUserInput,'rir')
     writeDigitalPin(a,'D9',0);
     writeDigitalPin(a,'D5',0);
     writeDigitalPin(a,'D3',0);
-    prompt = 'Turn each potentiometer to establish dimensions of your room (it is measured in meters and the max is 10m) \nFirst potentiometer is lenght of the room \nSecond is the width of the room \nThird is height of the room \nType "done" to see the result \n';
+    prompt = 'Turn each potentiometer to establish dimensions of your room (it is measured in meters and the max is 10m) \nFirst potentiometer is length of the room \nSecond is the width of the room \nThird is height of the room \nType "done" to see the result \n';
     roomUserInput = input(prompt, 's');
     valueOfPin1= 5-readVoltage(a,'A0');
     valueOfPin2= 5-readVoltage(a,'A1');
@@ -62,7 +62,7 @@ elseif strcmp(firstUserInput,'rir')
             writePWMDutyCycle(a, 'D5', valueOfPin2/5);
             writePWMDutyCycle(a, 'D3', valueOfPin3/5);
             disp("Dimensions of your room are:");
-            disp("Lenght =" + valueOfPin1*2);
+            disp("Length =" + valueOfPin1*2);
             disp("Width =" + valueOfPin2*2);
             disp("Height =" + valueOfPin3*2);
             sizeOfRoom = [valueOfPin1*2 valueOfPin2*2 valueOfPin3*2];
@@ -139,7 +139,7 @@ elseif strcmp(firstUserInput,'rir')
                                                    writeDigitalPin(a,'D9',0);
                                                    writeDigitalPin(a,'D5',0);
                                                    writeDigitalPin(a,'D3',0);
-                                                   prompt = 'Turn first potentiometer to establish reverb time and type "done"';
+                                                   prompt = 'Turn first potentiometer to establish reverb time and type "done" \n';
                                                     reverbTimeUserInput = input(prompt, 's');
                                                     valueOfPin1= 5-readVoltage(a,'A0');
                                                     valueOfPin2= 5-readVoltage(a,'A1');
@@ -151,6 +151,7 @@ elseif strcmp(firstUserInput,'rir')
                                                         disp(reverbTime);
                                                         prompt = 'Continue with these parameters? yes/no \n';
                                                         reverbTimeYesOrNo = input(prompt, 's');
+                                                        
                                                             if strcmp(reverbTimeYesOrNo, 'yes')
                                                             disp("Size of the room: " + sizeOfRoom);
                                                             disp("Receiver position: " + receiverPosition);
